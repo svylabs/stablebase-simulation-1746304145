@@ -15,11 +15,23 @@
     "mocha": "^10.2.0"
   },
   "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.8",
+    "@nomicfoundation/hardhat-ethers": "^3.0.8",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.12",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@nomiclabs/hardhat-etherscan": "^3.1.8",
     "@svylabs/ilumina": "^0.1.2",
+    "@typechain/ethers-v5": "^11.1.2",
     "@typechain/hardhat": "^9.1.0",
+    "@types/chai": "^5.2.1",
+    "@types/mocha": "^10.0.10",
+    "chai": "^5.2.0",
     "hardhat": "^2.22.19",
+    "hardhat-gas-reporter": "^2.2.3",
+    "solidity-coverage": "^0.8.15",
     "ts-node": "^10.9.2",
+    "typechain": "^8.3.2",
     "typescript": "^5.8.3"
   }
 }
