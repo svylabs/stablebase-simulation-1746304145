@@ -2,250 +2,266 @@
   "sequence": [
     {
       "type": "deploy",
-      "contract": "ChainlinkPriceFeed",
-      "constructor": "constructor(uint256 chainId) { if (chainId == 1) { // Ethereum Mainnet priceFeed = AggregatorV3Interface( 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419 ); } else if (chainId == 11155111) { // Sepolia Testnet priceFeed = AggregatorV3Interface( 0x694AA1769357215DE4FAC081bf1f309aDC325306 ); } else if (chainId == 5) { // Goerli Testnet (if needed) priceFeed = AggregatorV3Interface( 0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e ); } else { revert(\"Unsupported chain ID\"); } }",
-      "function": "",
-      "ref_name": "chainlinkPriceFeed",
-      "params": [
-        {
-          "name": "chainId",
-          "value": "11155111",
-          "type": "val"
-        }
-      ]
-    },
-    {
-      "type": "deploy",
       "contract": "Constants",
       "constructor": "null",
-      "function": "",
-      "ref_name": "constants",
-      "params": []
-    },
-    {
-      "type": "deploy",
-      "contract": "DFIDToken",
-      "constructor": "constructor() Ownable(msg.sender) ERC20(\"D.FI Dollar\", \"DFID\") {}",
-      "function": "",
-      "ref_name": "dfidToken",
-      "params": []
-    },
-    {
-      "type": "deploy",
-      "contract": "DFIREToken",
-      "constructor": "constructor() Ownable(msg.sender) ERC20(\"D.FIRE\", \"DFIRE\") { Initializes the contract, setting the deployer as the owner and initializing the ERC20 token with the name \"D.FIRE\" and symbol \"DFIRE\". }",
-      "function": "",
-      "ref_name": "dfireToken",
+      "function": "constructor",
+      "ref_name": "Constants",
       "params": []
     },
     {
       "type": "deploy",
       "contract": "DFIREStaking",
       "constructor": "constructor(bool _rewardSenderActive) Ownable(msg.sender) {\n        rewardSenderActive = _rewardSenderActive;\n    }",
-      "function": "",
-      "ref_name": "dfireStaking",
+      "function": "constructor",
+      "ref_name": "DFIREStaking",
       "params": [
         {
           "name": "_rewardSenderActive",
-          "value": "true",
+          "value": "msg.sender",
           "type": "val"
         }
       ]
+    },
+    {
+      "type": "deploy",
+      "contract": "DFIREToken",
+      "constructor": "constructor() Ownable(msg.sender) ERC20(\"D.FIRE\", \"DFIRE\") { Initializes the contract, setting the deployer as the owner and initializing the ERC20 token with the name \"D.FIRE\" and symbol \"DFIRE\". }",
+      "function": "constructor",
+      "ref_name": "DFIREToken",
+      "params": []
     },
     {
       "type": "deploy",
       "contract": "StabilityPool",
       "constructor": "constructor(bool _rewardSenderActive) Ownable(msg.sender) {\n        rewardSenderActive = _rewardSenderActive;\n    }",
-      "function": "",
-      "ref_name": "stabilityPool",
+      "function": "constructor",
+      "ref_name": "StabilityPool",
       "params": [
         {
           "name": "_rewardSenderActive",
-          "value": "true",
+          "value": "msg.sender",
           "type": "val"
         }
       ]
     },
     {
       "type": "deploy",
-      "contract": "MockPriceOracle",
-      "constructor": "constructor() Ownable(msg.sender) {}",
-      "function": "",
-      "ref_name": "mockPriceOracle",
-      "params": []
-    },
-    {
-      "type": "deploy",
-      "contract": "StableBase",
-      "constructor": "constructor() Ownable(msg.sender) ERC721(\"StableBase Safe\", \"SBSafe\") {}",
-      "function": "",
-      "ref_name": "stableBase",
+      "contract": "DFIDToken",
+      "constructor": "constructor() Ownable(msg.sender) ERC20(\"D.FI Dollar\", \"DFID\") {}",
+      "function": "constructor",
+      "ref_name": "DFIDToken",
       "params": []
     },
     {
       "type": "deploy",
       "contract": "StableBaseCDP",
       "constructor": "constructor() StableBase() {}",
-      "function": "",
-      "ref_name": "stableBaseCDP",
+      "function": "constructor",
+      "ref_name": "StableBaseCDP",
       "params": []
     },
     {
       "type": "deploy",
       "contract": "OrderedDoublyLinkedList",
       "constructor": "constructor() Ownable(msg.sender) {\n        head = 0;\n        tail = 0;\n    }",
-      "function": "",
-      "ref_name": "liquidationQueue",
+      "function": "constructor",
+      "ref_name": "OrderedDoublyLinkedList",
       "params": []
     },
     {
       "type": "deploy",
-      "contract": "OrderedDoublyLinkedList",
-      "constructor": "constructor() Ownable(msg.sender) {\n        head = 0;\n        tail = 0;\n    }",
-      "function": "",
-      "ref_name": "redemptionQueue",
-      "params": []
-    },
-    {
-      "type": "call",
-      "contract": "DFIDToken",
-      "constructor": "",
-      "function": "setAddresses",
-      "ref_name": "dfidToken",
+      "contract": "ReenterDfireStaking",
+      "constructor": "constructor(address _dfireStaking, address _dfireStakingToken) {\n        dfireStaking = IDFIREStaking(_dfireStaking);\n        stakeToken = IERC20(_dfireStakingToken);\n    }",
+      "function": "constructor",
+      "ref_name": "ReenterDfireStaking",
       "params": [
         {
-          "name": "_stableBaseCDP",
-          "value": "stableBaseCDP",
-          "type": "ref"
+          "name": "_dfireStaking",
+          "value": "address(DFIREStaking)",
+          "type": "val"
+        },
+        {
+          "name": "_dfireStakingToken",
+          "value": "address(DFIREToken)",
+          "type": "val"
         }
       ]
+    },
+    {
+      "type": "deploy",
+      "contract": "ReenterStabilityPool",
+      "constructor": "constructor(address _stabilityPool, address _stakeToken) {\n        stabilityPool = IStabilityPool(_stabilityPool);\n        stakeToken = IERC20(_stakeToken);\n    }",
+      "function": "constructor",
+      "ref_name": "ReenterStabilityPool",
+      "params": [
+        {
+          "name": "_stabilityPool",
+          "value": "address(StabilityPool)",
+          "type": "val"
+        },
+        {
+          "name": "_stakeToken",
+          "value": "address(DFIDToken)",
+          "type": "val"
+        }
+      ]
+    },
+    {
+      "type": "deploy",
+      "contract": "MockDebtContract",
+      "constructor": "constructor(address _stakingToken) {\n        stakingToken = IERC20(_stakingToken);\n    }",
+      "function": "constructor",
+      "ref_name": "MockDebtContract",
+      "params": [
+        {
+          "name": "_stakingToken",
+          "value": "address(DFIDToken)",
+          "type": "val"
+        }
+      ]
+    },
+    {
+      "type": "deploy",
+      "contract": "TestMath",
+      "constructor": "null",
+      "function": "constructor",
+      "ref_name": "TestMath",
+      "params": []
+    },
+    {
+      "type": "deploy",
+      "contract": "MockPriceOracle",
+      "constructor": "constructor() Ownable(msg.sender) {}",
+      "function": "constructor",
+      "ref_name": "MockPriceOracle",
+      "params": []
     },
     {
       "type": "call",
       "contract": "DFIREToken",
-      "constructor": "",
+      "constructor": "null",
       "function": "setAddresses",
-      "ref_name": "dfireToken",
+      "ref_name": "DFIREToken",
       "params": [
         {
           "name": "_stabilityPool",
-          "value": "stabilityPool",
-          "type": "ref"
-        }
-      ]
-    },
-    {
-      "type": "call",
-      "contract": "DFIREStaking",
-      "constructor": "",
-      "function": "setAddresses",
-      "ref_name": "dfireStaking",
-      "params": [
-        {
-          "name": "_stakingToken",
-          "value": "dfireToken",
-          "type": "ref"
-        },
-        {
-          "name": "_rewardToken",
-          "value": "dfidToken",
-          "type": "ref"
-        },
-        {
-          "name": "_stableBaseContract",
-          "value": "stableBaseCDP",
-          "type": "ref"
+          "value": "address(StabilityPool)",
+          "type": "val"
         }
       ]
     },
     {
       "type": "call",
       "contract": "StabilityPool",
-      "constructor": "",
+      "constructor": "null",
       "function": "setAddresses",
-      "ref_name": "stabilityPool",
+      "ref_name": "StabilityPool",
       "params": [
         {
           "name": "_stakingToken",
-          "value": "dfidToken",
-          "type": "ref"
+          "value": "address(DFIDToken)",
+          "type": "val"
         },
         {
           "name": "_stableBaseCDP",
-          "value": "stableBaseCDP",
-          "type": "ref"
+          "value": "address(StableBaseCDP)",
+          "type": "val"
         },
         {
           "name": "_sbrToken",
-          "value": "dfireToken",
-          "type": "ref"
+          "value": "address(DFIREToken)",
+          "type": "val"
         }
       ]
     },
     {
       "type": "call",
-      "contract": "StableBase",
-      "constructor": "",
+      "contract": "StableBaseCDP",
+      "constructor": "null",
       "function": "setAddresses",
-      "ref_name": "stableBase",
+      "ref_name": "StableBaseCDP",
       "params": [
         {
           "name": "_sbdToken",
-          "value": "dfidToken",
-          "type": "ref"
+          "value": "address(DFIDToken)",
+          "type": "val"
         },
         {
           "name": "_priceOracle",
-          "value": "chainlinkPriceFeed",
-          "type": "ref"
+          "value": "address(MockPriceOracle)",
+          "type": "val"
         },
         {
           "name": "_stabilityPool",
-          "value": "stabilityPool",
-          "type": "ref"
+          "value": "address(StabilityPool)",
+          "type": "val"
         },
         {
           "name": "_dfireTokenStaking",
-          "value": "dfireStaking",
-          "type": "ref"
+          "value": "address(DFIREStaking)",
+          "type": "val"
         },
         {
           "name": "_safesOrderedForLiquidation",
-          "value": "liquidationQueue",
-          "type": "ref"
+          "value": "address(OrderedDoublyLinkedList)",
+          "type": "val"
         },
         {
           "name": "_safesOrderedForRedemption",
-          "value": "redemptionQueue",
-          "type": "ref"
+          "value": "address(OrderedDoublyLinkedList)",
+          "type": "val"
+        }
+      ]
+    },
+    {
+      "type": "call",
+      "contract": "DFIDToken",
+      "constructor": "null",
+      "function": "setAddresses",
+      "ref_name": "DFIDToken",
+      "params": [
+        {
+          "name": "_stableBaseCDP",
+          "value": "address(StableBaseCDP)",
+          "type": "val"
         }
       ]
     },
     {
       "type": "call",
       "contract": "OrderedDoublyLinkedList",
-      "constructor": "",
+      "constructor": "null",
       "function": "setAddresses",
-      "ref_name": "liquidationQueue",
+      "ref_name": "OrderedDoublyLinkedList",
       "params": [
         {
           "name": "_stableBaseCDP",
-          "value": "stableBaseCDP",
-          "type": "ref"
+          "value": "address(StableBaseCDP)",
+          "type": "val"
         }
       ]
     },
     {
       "type": "call",
-      "contract": "OrderedDoublyLinkedList",
-      "constructor": "",
+      "contract": "DFIREStaking",
+      "constructor": "null",
       "function": "setAddresses",
-      "ref_name": "redemptionQueue",
+      "ref_name": "DFIREStaking",
       "params": [
         {
-          "name": "_stableBaseCDP",
-          "value": "stableBaseCDP",
-          "type": "ref"
+          "name": "_stakingToken",
+          "value": "address(DFIDToken)",
+          "type": "val"
+        },
+        {
+          "name": "_rewardToken",
+          "value": "address(DFIREToken)",
+          "type": "val"
+        },
+        {
+          "name": "_stableBaseContract",
+          "value": "address(StableBaseCDP)",
+          "type": "val"
         }
       ]
     }
