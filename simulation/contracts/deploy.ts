@@ -3,7 +3,7 @@ import { Contract, ContractFactory } from "ethers";
 
 import DFIDToken_json from "../../../stablebase/artifacts/contracts/DFIDToken.sol/DFIDToken.json";
 import DFIREToken_json from "../../../stablebase/artifacts/contracts/DFIREToken.sol/DFIREToken.json";
-import MockPriceOracle_json from "../../../stablebase/artifacts/contracts/MockPriceOracle.sol/MockPriceOracle.json";
+import MockPriceOracle_json from "../../../stablebase/artifacts/contracts/dependencies/price-oracle/MockPriceOracle.sol/MockPriceOracle.json";
 import DFIREStaking_json from "../../../stablebase/artifacts/contracts/DFIREStaking.sol/DFIREStaking.json";
 import OrderedDoublyLinkedList_json from "../../../stablebase/artifacts/contracts/OrderedDoublyLinkedList.sol/OrderedDoublyLinkedList.json";
 import StabilityPool_json from "../../../stablebase/artifacts/contracts/StabilityPool.sol/StabilityPool.json";
