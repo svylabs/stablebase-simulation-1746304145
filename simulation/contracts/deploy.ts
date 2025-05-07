@@ -1,118 +1,223 @@
-import { ethers } from "hardhat";
-
-// Define the mapping type for contract addresses
-interface ContractAddresses {
-  [key: string]: string;
+{
+  "sequence": [
+    {
+      "type": "deploy",
+      "contract": "DFIDToken",
+      "constructor": "constructor() Ownable(msg.sender) ERC20(\"D.FI Dollar\", \"DFID\") {}",
+      "function": "constructor",
+      "ref_name": "dfidToken",
+      "params": []
+    },
+    {
+      "type": "deploy",
+      "contract": "DFIREToken",
+      "constructor": "constructor() Ownable(msg.sender) ERC20(\"D.FIRE\", \"DFIRE\") { Initializes the contract, setting the deployer as the owner and initializing the ERC20 token with the name \"D.FIRE\" and symbol \"DFIRE\". }",
+      "function": "constructor",
+      "ref_name": "dfireToken",
+      "params": []
+    },
+    {
+      "type": "deploy",
+      "contract": "MockPriceOracle",
+      "constructor": "constructor() Ownable(msg.sender) {}",
+      "function": "constructor",
+      "ref_name": "mockPriceOracle",
+      "params": []
+    },
+    {
+      "type": "deploy",
+      "contract": "DFIREStaking",
+      "constructor": "constructor(bool _rewardSenderActive) Ownable(msg.sender) {\n        rewardSenderActive = _rewardSenderActive;\n    }",
+      "function": "constructor",
+      "ref_name": "dfireStaking",
+      "params": [
+        {
+          "name": "_rewardSenderActive",
+          "value": "true",
+          "type": "val"
+        }
+      ]
+    },
+    {
+      "type": "deploy",
+      "contract": "OrderedDoublyLinkedList",
+      "constructor": "constructor() Ownable(msg.sender) {\n        head = 0;\n        tail = 0;\n    }",
+      "function": "constructor",
+      "ref_name": "liquidationQueue",
+      "params": []
+    },
+    {
+      "type": "deploy",
+      "contract": "OrderedDoublyLinkedList",
+      "constructor": "constructor() Ownable(msg.sender) {\n        head = 0;\n        tail = 0;\n    }",
+      "function": "constructor",
+      "ref_name": "redemptionQueue",
+      "params": []
+    },
+    {
+      "type": "deploy",
+      "contract": "StabilityPool",
+      "constructor": "constructor(bool _rewardSenderActive) Ownable(msg.sender) {\n        rewardSenderActive = _rewardSenderActive;\n    }",
+      "function": "constructor",
+      "ref_name": "stabilityPool",
+      "params": [
+        {
+          "name": "_rewardSenderActive",
+          "value": "true",
+          "type": "val"
+        }
+      ]
+    },
+    {
+      "type": "deploy",
+      "contract": "StableBaseCDP",
+      "constructor": "constructor() StableBase() {}",
+      "function": "constructor",
+      "ref_name": "stableBaseCDP",
+      "params": []
+    },
+    {
+      "type": "call",
+      "contract": "StableBaseCDP",
+      "constructor": "",
+      "function": "setAddresses",
+      "ref_name": "stableBase_setAddresses",
+      "params": [
+        {
+          "name": "_sbdToken",
+          "value": "dfidToken",
+          "type": "ref"
+        },
+        {
+          "name": "_priceOracle",
+          "value": "mockPriceOracle",
+          "type": "ref"
+        },
+        {
+          "name": "_stabilityPool",
+          "value": "stabilityPool",
+          "type": "ref"
+        },
+        {
+          "name": "_dfireTokenStaking",
+          "value": "dfireStaking",
+          "type": "ref"
+        },
+        {
+          "name": "_safesOrderedForLiquidation",
+          "value": "liquidationQueue",
+          "type": "ref"
+        },
+        {
+          "name": "_safesOrderedForRedemption",
+          "value": "redemptionQueue",
+          "type": "ref"
+        }
+      ]
+    },
+    {
+      "type": "call",
+      "contract": "DFIDToken",
+      "constructor": "",
+      "function": "setAddresses",
+      "ref_name": "dfidToken_setAddresses",
+      "params": [
+        {
+          "name": "_stableBaseCDP",
+          "value": "stableBaseCDP",
+          "type": "ref"
+        }
+      ]
+    },
+    {
+      "type": "call",
+      "contract": "DFIREToken",
+      "constructor": "",
+      "function": "setAddresses",
+      "ref_name": "dfireToken_setAddresses",
+      "params": [
+        {
+          "name": "_stabilityPool",
+          "value": "stabilityPool",
+          "type": "ref"
+        }
+      ]
+    },
+    {
+      "type": "call",
+      "contract": "DFIREStaking",
+      "constructor": "",
+      "function": "setAddresses",
+      "ref_name": "dfireStaking_setAddresses",
+      "params": [
+        {
+          "name": "_stakingToken",
+          "value": "dfireToken",
+          "type": "ref"
+        },
+        {
+          "name": "_rewardToken",
+          "value": "dfireToken",
+          "type": "ref"
+        },
+        {
+          "name": "_stableBaseContract",
+          "value": "stableBaseCDP",
+          "type": "ref"
+        }
+      ]
+    },
+    {
+      "type": "call",
+      "contract": "StabilityPool",
+      "constructor": "",
+      "function": "setAddresses",
+      "ref_name": "stabilityPool_setAddresses",
+      "params": [
+        {
+          "name": "_stakingToken",
+          "value": "dfidToken",
+          "type": "ref"
+        },
+        {
+          "name": "_stableBaseCDP",
+          "value": "stableBaseCDP",
+          "type": "ref"
+        },
+        {
+          "name": "_sbrToken",
+          "value": "dfireToken",
+          "type": "ref"
+        }
+      ]
+    },
+    {
+      "type": "call",
+      "contract": "OrderedDoublyLinkedList",
+      "constructor": "",
+      "function": "setAddresses",
+      "ref_name": "liquidationQueue_setAddresses",
+      "params": [
+        {
+          "name": "_stableBaseCDP",
+          "value": "stableBaseCDP",
+          "type": "ref"
+        }
+      ]
+    },
+    {
+      "type": "call",
+      "contract": "OrderedDoublyLinkedList",
+      "constructor": "",
+      "function": "setAddresses",
+      "ref_name": "redemptionQueue_setAddresses",
+      "params": [
+        {
+          "name": "_stableBaseCDP",
+          "value": "stableBaseCDP",
+          "type": "ref"
+        }
+      ]
+    }
+  ]
 }
-
-async function deployContracts(): Promise<ContractAddresses> {
-  const contractAddresses: ContractAddresses = {};
-
-  try {
-    // Deploy DFIDToken
-    const DFIDToken = await ethers.getContractFactory("DFIDToken");
-    const dfidToken = await DFIDToken.deploy();
-    await dfidToken.waitForDeployment();
-    contractAddresses["dfidToken"] = await dfidToken.getAddress();
-
-    // Deploy DFIREToken
-    const DFIREToken = await ethers.getContractFactory("DFIREToken");
-    const dfireToken = await DFIREToken.deploy();
-    await dfireToken.waitForDeployment();
-    contractAddresses["dfireToken"] = await dfireToken.getAddress();
-
-    // Deploy MockPriceOracle
-    const MockPriceOracle = await ethers.getContractFactory("MockPriceOracle");
-    const mockPriceOracle = await MockPriceOracle.deploy();
-    await mockPriceOracle.waitForDeployment();
-    contractAddresses["mockPriceOracle"] = await mockPriceOracle.getAddress();
-
-    // Deploy DFIREStaking
-    const DFIREStaking = await ethers.getContractFactory("DFIREStaking");
-    const rewardSenderActive = true; // Set rewardSenderActive dynamically if needed
-    const dfireStaking = await DFIREStaking.deploy(rewardSenderActive);
-    await dfireStaking.waitForDeployment();
-    contractAddresses["dfireStaking"] = await dfireStaking.getAddress();
-
-    // Deploy OrderedDoublyLinkedList (liquidationQueue)
-    const OrderedDoublyLinkedListLiquidation = await ethers.getContractFactory("OrderedDoublyLinkedList");
-    const liquidationQueue = await OrderedDoublyLinkedListLiquidation.deploy();
-    await liquidationQueue.waitForDeployment();
-    contractAddresses["liquidationQueue"] = await liquidationQueue.getAddress();
-
-    // Deploy OrderedDoublyLinkedList (redemptionQueue)
-    const OrderedDoublyLinkedListRedemption = await ethers.getContractFactory("OrderedDoublyLinkedList");
-    const redemptionQueue = await OrderedDoublyLinkedListRedemption.deploy();
-    await redemptionQueue.waitForDeployment();
-    contractAddresses["redemptionQueue"] = await redemptionQueue.getAddress();
-
-    // Deploy StabilityPool
-    const StabilityPool = await ethers.getContractFactory("StabilityPool");
-    const stabilityPool = await StabilityPool.deploy(true);
-    await stabilityPool.waitForDeployment();
-    contractAddresses["stabilityPool"] = await stabilityPool.getAddress();
-
-    // Deploy StableBaseCDP
-    const StableBaseCDP = await ethers.getContractFactory("StableBaseCDP");
-    const stableBaseCDP = await StableBaseCDP.deploy();
-    await stableBaseCDP.waitForDeployment();
-    contractAddresses["stableBaseCDP"] = await stableBaseCDP.getAddress();
-
-    // Set Addresses on StableBaseCDP
-    await stableBaseCDP.setAddresses(
-      contractAddresses["dfidToken"],
-      contractAddresses["mockPriceOracle"],
-      contractAddresses["stabilityPool"],
-      contractAddresses["dfireStaking"],
-      contractAddresses["liquidationQueue"],
-      contractAddresses["redemptionQueue"]
-    );
-
-    // Set Addresses on DFIDToken
-    await dfidToken.setAddresses(contractAddresses["stableBaseCDP"]);
-
-    // Set Addresses on DFIREToken
-    await dfireToken.setAddresses(contractAddresses["stabilityPool"]);
-
-    // Set Addresses on DFIREStaking
-    await dfireStaking.setAddresses(
-      contractAddresses["dfireToken"],
-      contractAddresses["dfireToken"],
-      contractAddresses["stableBaseCDP"]
-    );
-
-    // Set Addresses on StabilityPool
-    await stabilityPool.setAddresses(
-      contractAddresses["dfidToken"],
-      contractAddresses["stableBaseCDP"],
-      contractAddresses["dfireToken"]
-    );
-
-    // Set Addresses on liquidationQueue
-    await liquidationQueue.setAddresses(contractAddresses["stableBaseCDP"]);
-
-    // Set Addresses on redemptionQueue
-    await redemptionQueue.setAddresses(contractAddresses["stableBaseCDP"]);
-
-    return contractAddresses;
-  } catch (error) {
-    console.error("Deployment error:", error);
-    throw error; // Re-throw the error to fail the deployment
-  }
-}
-
-async function main() {
-  try {
-    const contractAddresses = await deployContracts();
-    console.log("Contract Addresses:", contractAddresses);
-  } catch (error) {
-    console.error("Failed to deploy contracts", error);
-  }
-}
-
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
-
-export { deployContracts };
