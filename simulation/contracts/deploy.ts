@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 import fs from "fs";
 
-// Import contract artifact paths from the provided mapping
+// Mapping of artifact import paths
 const artifactPaths = {
   "DFIDToken": "../../../stablebase/artifacts/contracts/DFIDToken.sol/DFIDToken.json",
   "DFIREStaking": "../../../stablebase/artifacts/contracts/DFIREStaking.sol/DFIREStaking.json",
@@ -12,178 +12,111 @@ const artifactPaths = {
   "StableBaseCDP": "../../../stablebase/artifacts/contracts/StableBaseCDP.sol/StableBaseCDP.json",
 };
 
-// Dynamically import contract ABIs using artifact paths
-const loadContractArtifact = async (contractName: string) => {
-  const artifactPath = artifactPaths[contractName];
-  if (!artifactPath) {
-    throw new Error(`Artifact path not found for contract: ${contractName}`);
-  }
-  const artifact = JSON.parse(
-    fs.readFileSync(artifactPath, 'utf8')
-  );
-  return artifact;
-};
-
-
-export async function deployContracts() {
+async function deployContracts() {
   const [deployer] = await ethers.getSigners();
 
   console.log("Deploying contracts with the account:", deployer.address);
 
-  const contracts: { [name: string]: any } = {};
+  const contracts: { [key: string]: any } = {};
+
+  // Helper function to deploy contracts and wait for deployment
+  async function deployContract(contractName: string, constructorArgs: any[] = []) {
+    console.log(`Deploying ${contractName}...`);
+    const artifactPath = artifactPaths[contractName];
+    if (!artifactPath) {
+      throw new Error(`Artifact path not found for ${contractName}`);
+    }
+    const artifact = JSON.parse(fs.readFileSync(artifactPath, "utf8"));
+    const factory = new ethers.ContractFactory(artifact.abi, artifact.bytecode, deployer);
+    const contract = await factory.deploy(...constructorArgs);
+    await contract.waitForDeployment();
+    console.log(`${contractName} deployed to:`, contract.target);
+    contracts[contractName] = contract;
+    return contract;
+  }
 
   // Deploy DFIDToken
-  const DFIDTokenArtifact = await loadContractArtifact("DFIDToken");
-  const DFIDTokenFactory = new ethers.ContractFactory(
-    DFIDTokenArtifact.abi,
-    DFIDTokenArtifact.bytecode,
-    deployer
-  );
-  contracts['dfidToken'] = await DFIDTokenFactory.deploy();
-  await contracts['dfidToken'].waitForDeployment();
-  console.log("DFIDToken deployed to:", contracts['dfidToken'].target);
+  await deployContract("DFIDToken");
 
   // Deploy DFIREToken
-  const DFIRETokenArtifact = await loadContractArtifact("DFIREToken");
-  const DFIRETokenFactory = new ethers.ContractFactory(
-    DFIRETokenArtifact.abi,
-    DFIRETokenArtifact.bytecode,
-    deployer
-  );
-  contracts['dfireToken'] = await DFIRETokenFactory.deploy();
-  await contracts['dfireToken'].waitForDeployment();
-  console.log("DFIREToken deployed to:", contracts['dfireToken'].target);
+  await deployContract("DFIREToken");
 
   // Deploy MockPriceOracle
-  const MockPriceOracleArtifact = await loadContractArtifact("MockPriceOracle");
-  const MockPriceOracleFactory = new ethers.ContractFactory(
-    MockPriceOracleArtifact.abi,
-    MockPriceOracleArtifact.bytecode,
-    deployer
-  );
-  contracts['mockPriceOracle'] = await MockPriceOracleFactory.deploy();
-  await contracts['mockPriceOracle'].waitForDeployment();
-  console.log("MockPriceOracle deployed to:", contracts['mockPriceOracle'].target);
+  await deployContract("MockPriceOracle");
 
   // Deploy DFIREStaking
-  const DFIREStakingArtifact = await loadContractArtifact("DFIREStaking");
-  const DFIREStakingFactory = new ethers.ContractFactory(
-    DFIREStakingArtifact.abi,
-    DFIREStakingArtifact.bytecode,
-    deployer
-  );
-  contracts['dfireStaking'] = await DFIREStakingFactory.deploy(true);
-  await contracts['dfireStaking'].waitForDeployment();
-  console.log("DFIREStaking deployed to:", contracts['dfireStaking'].target);
+  await deployContract("DFIREStaking", [true]);
 
-  // Deploy OrderedDoublyLinkedList (Liquidation Queue)
-  const OrderedDoublyLinkedListArtifact = await loadContractArtifact("OrderedDoublyLinkedList");
-  const LiquidationQueueFactory = new ethers.ContractFactory(
-    OrderedDoublyLinkedListArtifact.abi,
-    OrderedDoublyLinkedListArtifact.bytecode,
-    deployer
-  );
-  contracts['liquidationQueue'] = await LiquidationQueueFactory.deploy();
-  await contracts['liquidationQueue'].waitForDeployment();
-  console.log("LiquidationQueue deployed to:", contracts['liquidationQueue'].target);
+  // Deploy OrderedDoublyLinkedList (liquidationQueue)
+  await deployContract("OrderedDoublyLinkedList");
 
-  // Deploy OrderedDoublyLinkedList (Redemption Queue)
-  const RedemptionQueueFactory = new ethers.ContractFactory(
-    OrderedDoublyLinkedListArtifact.abi,
-    OrderedDoublyLinkedListArtifact.bytecode,
-    deployer
-  );
-  contracts['redemptionQueue'] = await RedemptionQueueFactory.deploy();
-  await contracts['redemptionQueue'].waitForDeployment();
-  console.log("RedemptionQueue deployed to:", contracts['redemptionQueue'].target);
+  // Deploy OrderedDoublyLinkedList (redemptionQueue)
+  await deployContract("OrderedDoublyLinkedList");
 
   // Deploy StabilityPool
-  const StabilityPoolArtifact = await loadContractArtifact("StabilityPool");
-    const StabilityPoolFactory = new ethers.ContractFactory(
-        StabilityPoolArtifact.abi,
-        StabilityPoolArtifact.bytecode,
-        deployer
-    );
-  contracts['stabilityPool'] = await StabilityPoolFactory.deploy(true);
-  await contracts['stabilityPool'].waitForDeployment();
-  console.log("StabilityPool deployed to:", contracts['stabilityPool'].target);
+  await deployContract("StabilityPool", [true]);
 
   // Deploy StableBaseCDP
-  const StableBaseCDPArtifact = await loadContractArtifact("StableBaseCDP");
-  const StableBaseCDPFactory = new ethers.ContractFactory(
-    StableBaseCDPArtifact.abi,
-    StableBaseCDPArtifact.bytecode,
-    deployer
-  );
-  contracts['stableBaseCDP'] = await StableBaseCDPFactory.deploy();
-  await contracts['stableBaseCDP'].waitForDeployment();
-  console.log("StableBaseCDP deployed to:", contracts['stableBaseCDP'].target);
+  const stableBaseCDP = await deployContract("StableBaseCDP");
 
-  // Set Addresses on StableBaseCDP
-  let tx = await contracts['stableBaseCDP'].connect(deployer).setAddresses(
-    contracts['dfidToken'].target,
-    contracts['mockPriceOracle'].target,
-    contracts['stabilityPool'].target,
-    contracts['dfireStaking'].target,
-    contracts['liquidationQueue'].target,
-    contracts['redemptionQueue'].target
+  // Call setAddresses on StableBaseCDP
+  console.log("Calling setAddresses on StableBaseCDP...");
+  let tx = await stableBaseCDP.setAddresses(
+    contracts["DFIDToken"].target,
+    contracts["MockPriceOracle"].target,
+    contracts["StabilityPool"].target,
+    contracts["DFIREStaking"].target,
+    contracts["OrderedDoublyLinkedList"].target, // liquidationQueue
+    contracts["OrderedDoublyLinkedList"].target  // redemptionQueue
   );
   await tx.wait();
-  console.log("StableBaseCDP setAddresses completed");
+  console.log("setAddresses on StableBaseCDP done.");
 
-  // Set Addresses on DFIDToken
-  tx = await contracts['dfidToken'].connect(deployer).setAddresses(contracts['stableBaseCDP'].target);
+  // Call setAddresses on DFIDToken
+  console.log("Calling setAddresses on DFIDToken...");
+  tx = await contracts["DFIDToken"].setAddresses(stableBaseCDP.target);
   await tx.wait();
-  console.log("DFIDToken setAddresses completed");
+  console.log("setAddresses on DFIDToken done.");
 
-  // Set Addresses on DFIREToken
-  tx = await contracts['dfireToken'].connect(deployer).setAddresses(contracts['stabilityPool'].target);
+  // Call setAddresses on DFIREToken
+  console.log("Calling setAddresses on DFIREToken...");
+  tx = await contracts["DFIREToken"].setAddresses(contracts["StabilityPool"].target);
   await tx.wait();
-  console.log("DFIREToken setAddresses completed");
+  console.log("setAddresses on DFIREToken done.");
 
-  // Set Addresses on DFIREStaking
-  tx = await contracts['dfireStaking'].connect(deployer).setAddresses(
-    contracts['dfireToken'].target,
-    contracts['dfireToken'].target,
-    contracts['stableBaseCDP'].target
+  // Call setAddresses on DFIREStaking
+  console.log("Calling setAddresses on DFIREStaking...");
+  tx = await contracts["DFIREStaking"].setAddresses(
+    contracts["DFIREToken"].target,
+    contracts["DFIREToken"].target,
+    stableBaseCDP.target
   );
   await tx.wait();
-  console.log("DFIREStaking setAddresses completed");
+  console.log("setAddresses on DFIREStaking done.");
 
-  // Set Addresses on StabilityPool
-  tx = await contracts['stabilityPool'].connect(deployer).setAddresses(
-    contracts['dfidToken'].target,
-    contracts['stableBaseCDP'].target,
-    contracts['dfireToken'].target
+  // Call setAddresses on StabilityPool
+  console.log("Calling setAddresses on StabilityPool...");
+  tx = await contracts["StabilityPool"].setAddresses(
+    contracts["DFIDToken"].target,
+    stableBaseCDP.target,
+    contracts["DFIREToken"].target
   );
   await tx.wait();
-  console.log("StabilityPool setAddresses completed");
+  console.log("setAddresses on StabilityPool done.");
 
-  // Set Addresses on LiquidationQueue
-  tx = await contracts['liquidationQueue'].connect(deployer).setAddresses(contracts['stableBaseCDP'].target);
+  // Call setAddresses on liquidationQueue
+  console.log("Calling setAddresses on liquidationQueue...");
+  tx = await contracts["OrderedDoublyLinkedList"].setAddresses(stableBaseCDP.target);
   await tx.wait();
-  console.log("LiquidationQueue setAddresses completed");
+  console.log("setAddresses on liquidationQueue done.");
 
-  // Set Addresses on RedemptionQueue
-  tx = await contracts['redemptionQueue'].connect(deployer).setAddresses(contracts['stableBaseCDP'].target);
+  // Call setAddresses on redemptionQueue
+  console.log("Calling setAddresses on redemptionQueue...");
+  tx = await contracts["OrderedDoublyLinkedList"].setAddresses(stableBaseCDP.target);
   await tx.wait();
-  console.log("RedemptionQueue setAddresses completed");
+  console.log("setAddresses on redemptionQueue done.");
 
   return contracts;
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.  Not needed for corrected code.
-async function main() {
-  try {
-    await deployContracts();
-  } catch (error) {
-    console.error(error);
-    process.exitCode = 1;
-  }
-}
-
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+export { deployContracts };
