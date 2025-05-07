@@ -1,223 +1,187 @@
-{
-  "sequence": [
-    {
-      "type": "deploy",
-      "contract": "DFIDToken",
-      "constructor": "constructor() Ownable(msg.sender) ERC20(\"D.FI Dollar\", \"DFID\") {}",
-      "function": "constructor",
-      "ref_name": "dfidToken",
-      "params": []
-    },
-    {
-      "type": "deploy",
-      "contract": "DFIREToken",
-      "constructor": "constructor() Ownable(msg.sender) ERC20(\"D.FIRE\", \"DFIRE\") { Initializes the contract, setting the deployer as the owner and initializing the ERC20 token with the name \"D.FIRE\" and symbol \"DFIRE\". }",
-      "function": "constructor",
-      "ref_name": "dfireToken",
-      "params": []
-    },
-    {
-      "type": "deploy",
-      "contract": "MockPriceOracle",
-      "constructor": "constructor() Ownable(msg.sender) {}",
-      "function": "constructor",
-      "ref_name": "mockPriceOracle",
-      "params": []
-    },
-    {
-      "type": "deploy",
-      "contract": "DFIREStaking",
-      "constructor": "constructor(bool _rewardSenderActive) Ownable(msg.sender) {\n        rewardSenderActive = _rewardSenderActive;\n    }",
-      "function": "constructor",
-      "ref_name": "dfireStaking",
-      "params": [
-        {
-          "name": "_rewardSenderActive",
-          "value": "true",
-          "type": "val"
-        }
-      ]
-    },
-    {
-      "type": "deploy",
-      "contract": "OrderedDoublyLinkedList",
-      "constructor": "constructor() Ownable(msg.sender) {\n        head = 0;\n        tail = 0;\n    }",
-      "function": "constructor",
-      "ref_name": "liquidationQueue",
-      "params": []
-    },
-    {
-      "type": "deploy",
-      "contract": "OrderedDoublyLinkedList",
-      "constructor": "constructor() Ownable(msg.sender) {\n        head = 0;\n        tail = 0;\n    }",
-      "function": "constructor",
-      "ref_name": "redemptionQueue",
-      "params": []
-    },
-    {
-      "type": "deploy",
-      "contract": "StabilityPool",
-      "constructor": "constructor(bool _rewardSenderActive) Ownable(msg.sender) {\n        rewardSenderActive = _rewardSenderActive;\n    }",
-      "function": "constructor",
-      "ref_name": "stabilityPool",
-      "params": [
-        {
-          "name": "_rewardSenderActive",
-          "value": "true",
-          "type": "val"
-        }
-      ]
-    },
-    {
-      "type": "deploy",
-      "contract": "StableBaseCDP",
-      "constructor": "constructor() StableBase() {}",
-      "function": "constructor",
-      "ref_name": "stableBaseCDP",
-      "params": []
-    },
-    {
-      "type": "call",
-      "contract": "StableBaseCDP",
-      "constructor": "",
-      "function": "setAddresses",
-      "ref_name": "stableBase_setAddresses",
-      "params": [
-        {
-          "name": "_sbdToken",
-          "value": "dfidToken",
-          "type": "ref"
-        },
-        {
-          "name": "_priceOracle",
-          "value": "mockPriceOracle",
-          "type": "ref"
-        },
-        {
-          "name": "_stabilityPool",
-          "value": "stabilityPool",
-          "type": "ref"
-        },
-        {
-          "name": "_dfireTokenStaking",
-          "value": "dfireStaking",
-          "type": "ref"
-        },
-        {
-          "name": "_safesOrderedForLiquidation",
-          "value": "liquidationQueue",
-          "type": "ref"
-        },
-        {
-          "name": "_safesOrderedForRedemption",
-          "value": "redemptionQueue",
-          "type": "ref"
-        }
-      ]
-    },
-    {
-      "type": "call",
-      "contract": "DFIDToken",
-      "constructor": "",
-      "function": "setAddresses",
-      "ref_name": "dfidToken_setAddresses",
-      "params": [
-        {
-          "name": "_stableBaseCDP",
-          "value": "stableBaseCDP",
-          "type": "ref"
-        }
-      ]
-    },
-    {
-      "type": "call",
-      "contract": "DFIREToken",
-      "constructor": "",
-      "function": "setAddresses",
-      "ref_name": "dfireToken_setAddresses",
-      "params": [
-        {
-          "name": "_stabilityPool",
-          "value": "stabilityPool",
-          "type": "ref"
-        }
-      ]
-    },
-    {
-      "type": "call",
-      "contract": "DFIREStaking",
-      "constructor": "",
-      "function": "setAddresses",
-      "ref_name": "dfireStaking_setAddresses",
-      "params": [
-        {
-          "name": "_stakingToken",
-          "value": "dfireToken",
-          "type": "ref"
-        },
-        {
-          "name": "_rewardToken",
-          "value": "dfireToken",
-          "type": "ref"
-        },
-        {
-          "name": "_stableBaseContract",
-          "value": "stableBaseCDP",
-          "type": "ref"
-        }
-      ]
-    },
-    {
-      "type": "call",
-      "contract": "StabilityPool",
-      "constructor": "",
-      "function": "setAddresses",
-      "ref_name": "stabilityPool_setAddresses",
-      "params": [
-        {
-          "name": "_stakingToken",
-          "value": "dfidToken",
-          "type": "ref"
-        },
-        {
-          "name": "_stableBaseCDP",
-          "value": "stableBaseCDP",
-          "type": "ref"
-        },
-        {
-          "name": "_sbrToken",
-          "value": "dfireToken",
-          "type": "ref"
-        }
-      ]
-    },
-    {
-      "type": "call",
-      "contract": "OrderedDoublyLinkedList",
-      "constructor": "",
-      "function": "setAddresses",
-      "ref_name": "liquidationQueue_setAddresses",
-      "params": [
-        {
-          "name": "_stableBaseCDP",
-          "value": "stableBaseCDP",
-          "type": "ref"
-        }
-      ]
-    },
-    {
-      "type": "call",
-      "contract": "OrderedDoublyLinkedList",
-      "constructor": "",
-      "function": "setAddresses",
-      "ref_name": "redemptionQueue_setAddresses",
-      "params": [
-        {
-          "name": "_stableBaseCDP",
-          "value": "stableBaseCDP",
-          "type": "ref"
-        }
-      ]
+import { ethers } from "hardhat";
+import { Contract, ContractFactory } from "ethers";
+
+// Import contract artifacts
+import DFIDTokenArtifact from "../../../stablebase/artifacts/contracts/DFIDToken.sol/DFIDToken.json";
+import DFIREStakingArtifact from "../../../stablebase/artifacts/contracts/DFIREStaking.sol/DFIREStaking.json";
+import DFIRETokenArtifact from "../../../stablebase/artifacts/contracts/DFIREToken.sol/DFIREToken.json";
+import MockPriceOracleArtifact from "../../../stablebase/artifacts/contracts/dependencies/price-oracle/MockPriceOracle.sol/MockPriceOracle.json";
+import OrderedDoublyLinkedListArtifact from "../../../stablebase/artifacts/contracts/library/OrderedDoublyLinkedList.sol/OrderedDoublyLinkedList.json";
+import StabilityPoolArtifact from "../../../stablebase/artifacts/contracts/test/ReenterStabilityPool.sol/ReenterStabilityPool.json";
+import StableBaseCDPArtifact from "../../../stablebase/artifacts/contracts/StableBaseCDP.sol/StableBaseCDP.json";
+
+// Import contract types
+import { DFIDToken } from "../../../stablebase/typechain-types/contracts/DFIDToken";
+import { DFIREStaking } from "../../../stablebase/typechain-types/contracts/DFIREStaking";
+import { DFIREToken } from "../../../stablebase/typechain-types/contracts/DFIREToken";
+import { MockPriceOracle } from "../../../stablebase/typechain-types/contracts/dependencies/price-oracle/MockPriceOracle";
+import { OrderedDoublyLinkedList } from "../../../stablebase/typechain-types/contracts/library/OrderedDoublyLinkedList";
+import { StabilityPool } from "../../../stablebase/typechain-types/contracts/test/ReenterStabilityPool";
+import { StableBaseCDP } from "../../../stablebase/typechain-types/contracts/StableBaseCDP";
+
+interface ContractArtifact {
+  abi: any;
+  bytecode: string;
+}
+
+interface DeployedContracts {
+  [key: string]: Contract;
+}
+
+export async function deployContracts(): Promise<DeployedContracts> {
+  const [deployer] = await ethers.getSigners();
+
+  console.log("Deploying contracts with the account:", deployer.address);
+
+  const deployedContracts: DeployedContracts = {};
+
+  // Helper function to deploy contracts
+  async function deployContract<T extends Contract>(
+    artifact: ContractArtifact,
+    contractName: string,
+    constructorArgs: any[] = []
+  ): Promise<T> {
+    console.log(`Deploying ${contractName}...`);
+    const factory = new ContractFactory(
+      artifact.abi,
+      artifact.bytecode,
+      deployer
+    );
+    try {
+      const contract = (await factory.deploy(...constructorArgs)) as T;
+      await contract.waitForDeployment();
+      console.log(`${contractName} deployed at: ${contract.target}`);
+      deployedContracts[contractName] = contract;
+      return contract;
+    } catch (error) {
+      console.error(`Failed to deploy ${contractName}:`, error);
+      throw error; // Re-throw the error to halt the deployment
     }
-  ]
+  }
+
+  // Deploy contracts in sequence
+  const dfidToken = await deployContract<DFIDToken>(
+    DFIDTokenArtifact,
+    "DFIDToken",
+    []
+  );
+  const dfireToken = await deployContract<DFIREToken>(
+    DFIRETokenArtifact,
+    "DFIREToken",
+    []
+  );
+  const mockPriceOracle = await deployContract<MockPriceOracle>(
+    MockPriceOracleArtifact,
+    "MockPriceOracle",
+    []
+  );
+  const dfireStaking = await deployContract<DFIREStaking>(
+    DFIREStakingArtifact,
+    "DFIREStaking",
+    [true]
+  );
+  const liquidationQueue = await deployContract<OrderedDoublyLinkedList>(
+    OrderedDoublyLinkedListArtifact,
+    "OrderedDoublyLinkedList",
+    []
+  );
+  const redemptionQueue = await deployContract<OrderedDoublyLinkedList>(
+    OrderedDoublyLinkedListArtifact,
+    "OrderedDoublyLinkedList",
+    []
+  );
+  const stabilityPool = await deployContract<StabilityPool>(
+    StabilityPoolArtifact,
+    "StabilityPool",
+    [true]
+  );
+  const stableBaseCDP = await deployContract<StableBaseCDP>(
+    StableBaseCDPArtifact,
+    "StableBaseCDP",
+    []
+  );
+
+  // Call setAddresses functions
+  console.log("Setting contract addresses...");
+
+  try {
+    console.log("Calling stableBaseCDP.setAddresses...");
+    await stableBaseCDP.setAddresses(
+      dfidToken.target,
+      mockPriceOracle.target,
+      stabilityPool.target,
+      dfireStaking.target,
+      liquidationQueue.target,
+      redemptionQueue.target
+    );
+    console.log("stableBaseCDP.setAddresses completed.");
+  } catch (error) {
+    console.error("Failed to call stableBaseCDP.setAddresses:", error);
+    throw error;
+  }
+
+  try {
+    console.log("Calling dfidToken.setAddresses...");
+    await dfidToken.setAddresses(stableBaseCDP.target);
+    console.log("dfidToken.setAddresses completed.");
+  } catch (error) {
+    console.error("Failed to call dfidToken.setAddresses:", error);
+    throw error;
+  }
+
+  try {
+    console.log("Calling dfireToken.setAddresses...");
+    await dfireToken.setAddresses(stabilityPool.target);
+    console.log("dfireToken.setAddresses completed.");
+  } catch (error) {
+    console.error("Failed to call dfireToken.setAddresses:", error);
+    throw error;
+  }
+
+  try {
+    console.log("Calling dfireStaking.setAddresses...");
+    await dfireStaking.setAddresses(
+      dfireToken.target,
+      dfireToken.target,
+      stableBaseCDP.target
+    );
+    console.log("dfireStaking.setAddresses completed.");
+  } catch (error) {
+    console.error("Failed to call dfireStaking.setAddresses:", error);
+    throw error;
+  }
+
+  try {
+    console.log("Calling stabilityPool.setAddresses...");
+    await stabilityPool.setAddresses(
+      dfidToken.target,
+      stableBaseCDP.target,
+      dfireToken.target
+    );
+    console.log("stabilityPool.setAddresses completed.");
+  } catch (error) {
+    console.error("Failed to call stabilityPool.setAddresses:", error);
+    throw error;
+  }
+
+  try {
+    console.log("Calling liquidationQueue.setAddresses...");
+    await liquidationQueue.setAddresses(stableBaseCDP.target);
+    console.log("liquidationQueue.setAddresses completed.");
+  } catch (error) {
+    console.error("Failed to call liquidationQueue.setAddresses:", error);
+    throw error;
+  }
+
+  try {
+    console.log("Calling redemptionQueue.setAddresses...");
+    await redemptionQueue.setAddresses(stableBaseCDP.target);
+    console.log("redemptionQueue.setAddresses completed.");
+  } catch (error) {
+    console.error("Failed to call redemptionQueue.setAddresses:", error);
+    throw error;
+  }
+
+  console.log("Contract deployment and setup complete!");
+  return deployedContracts;
 }
