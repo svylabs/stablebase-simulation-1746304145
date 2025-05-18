@@ -14,10 +14,10 @@ export function createRewardSenderActor(account: Account, contracts: Record<stri
     const actions: Action[] = [];
     let action;
     
-    action = new SetStabilityPoolRewardsAction(contracts.);
+    action = new SetStabilityPoolRewardsAction(contracts.StableBase);
     actions.push({action: action, probability: 0.05});
     
-    action = new SetSbrStakingPoolRewardsAction(contracts.);
+    action = new SetSbrStakingPoolRewardsAction(contracts.StableBase);
     actions.push({action: action, probability: 0.05});
     
     actor = new Actor(

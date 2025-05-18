@@ -16,13 +16,13 @@ export function createDfireStakerActor(account: Account, contracts: Record<strin
     const actions: Action[] = [];
     let action;
     
-    action = new StakeAction(contracts.);
+    action = new StakeAction(contracts.dfireStaking);
     actions.push({action: action, probability: 0.6});
     
-    action = new UnstakeAction(contracts.);
+    action = new UnstakeAction(contracts.dfireStaking);
     actions.push({action: action, probability: 0.5});
     
-    action = new ClaimAction(contracts.);
+    action = new ClaimAction(contracts.dfireStaking);
     actions.push({action: action, probability: 0.8});
     
     actor = new Actor(

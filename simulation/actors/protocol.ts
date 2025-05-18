@@ -22,22 +22,22 @@ export function createProtocolActor(account: Account, contracts: Record<string, 
     const actions: Action[] = [];
     let action;
     
-    action = new LiquidateSafesAction(contracts.);
+    action = new LiquidateSafesAction(contracts.stableBaseCDP);
     actions.push({action: action, probability: 0.2});
     
-    action = new ExecuteLiquidationAction(contracts.);
+    action = new ExecuteLiquidationAction(contracts.stabilityPool);
     actions.push({action: action, probability: 0.3});
     
-    action = new MintDfidAction(contracts.);
+    action = new MintDfidAction(contracts.dfidToken);
     actions.push({action: action, probability: 0.05});
     
-    action = new BurnDfidAction(contracts.);
+    action = new BurnDfidAction(contracts.dfidToken);
     actions.push({action: action, probability: 0.05});
     
-    action = new MintDfireAction(contracts.);
+    action = new MintDfireAction(contracts.dfireToken);
     actions.push({action: action, probability: 0.05});
     
-    action = new BurnDfireAction(contracts.);
+    action = new BurnDfireAction(contracts.dfireToken);
     actions.push({action: action, probability: 0.05});
     
     actor = new Actor(

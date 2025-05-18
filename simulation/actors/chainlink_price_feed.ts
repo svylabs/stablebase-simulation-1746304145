@@ -12,7 +12,7 @@ export function createChainlinkPriceFeedActor(account: Account, contracts: Recor
     const actions: Action[] = [];
     let action;
     
-    action = new FetchPriceAction(contracts.);
+    action = new FetchPriceAction(contracts.ChainlinkPriceFeed);
     actions.push({action: action, probability: 0.9});
     
     actor = new Actor(

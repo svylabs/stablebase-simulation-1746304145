@@ -16,13 +16,13 @@ export function createAdminActor(account: Account, contracts: Record<string, Con
     const actions: Action[] = [];
     let action;
     
-    action = new SetContractAddressesAction(contracts.);
+    action = new SetContractAddressesAction(contracts.StableBase);
     actions.push({action: action, probability: 0.01});
     
-    action = new SetStabilityPoolAddressAction(contracts.);
+    action = new SetStabilityPoolAddressAction(contracts.dfireToken);
     actions.push({action: action, probability: 0.01});
     
-    action = new SetStablebasecdpAddressAction(contracts.);
+    action = new SetStablebasecdpAddressAction(contracts.dfidToken);
     actions.push({action: action, probability: 0.01});
     
     actor = new Actor(

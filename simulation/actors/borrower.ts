@@ -26,28 +26,28 @@ export function createBorrowerActor(account: Account, contracts: Record<string, 
     const actions: Action[] = [];
     let action;
     
-    action = new OpenSafeAction(contracts.);
+    action = new OpenSafeAction(contracts.stableBaseCDP);
     actions.push({action: action, probability: 0.6});
     
-    action = new CloseSafeAction(contracts.);
+    action = new CloseSafeAction(contracts.stableBaseCDP);
     actions.push({action: action, probability: 0.4});
     
-    action = new BorrowAction(contracts.);
+    action = new BorrowAction(contracts.stableBaseCDP);
     actions.push({action: action, probability: 0.7});
     
-    action = new RepayAction(contracts.);
+    action = new RepayAction(contracts.stableBaseCDP);
     actions.push({action: action, probability: 0.8});
     
-    action = new AddCollateralAction(contracts.);
+    action = new AddCollateralAction(contracts.stableBaseCDP);
     actions.push({action: action, probability: 0.5});
     
-    action = new WithdrawCollateralAction(contracts.);
+    action = new WithdrawCollateralAction(contracts.stableBaseCDP);
     actions.push({action: action, probability: 0.3});
     
-    action = new FeeTopupAction(contracts.);
+    action = new FeeTopupAction(contracts.stableBaseCDP);
     actions.push({action: action, probability: 0.1});
     
-    action = new RedeemAction(contracts.);
+    action = new RedeemAction(contracts.stableBaseCDP);
     actions.push({action: action, probability: 0.2});
     
     actor = new Actor(

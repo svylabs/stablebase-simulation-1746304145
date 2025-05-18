@@ -12,7 +12,7 @@ export function createRedeemerActor(account: Account, contracts: Record<string, 
     const actions: Action[] = [];
     let action;
     
-    action = new RedeemAction(contracts.);
+    action = new RedeemAction(contracts.stableBaseCDP);
     actions.push({action: action, probability: 0.3});
     
     actor = new Actor(

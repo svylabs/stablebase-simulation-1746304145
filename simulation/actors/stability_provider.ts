@@ -16,13 +16,13 @@ export function createStabilityProviderActor(account: Account, contracts: Record
     const actions: Action[] = [];
     let action;
     
-    action = new StakeAction(contracts.);
+    action = new StakeAction(contracts.stabilityPool);
     actions.push({action: action, probability: 0.7});
     
-    action = new UnstakeAction(contracts.);
+    action = new UnstakeAction(contracts.stabilityPool);
     actions.push({action: action, probability: 0.6});
     
-    action = new ClaimAction(contracts.);
+    action = new ClaimAction(contracts.stabilityPool);
     actions.push({action: action, probability: 0.8});
     
     actor = new Actor(
