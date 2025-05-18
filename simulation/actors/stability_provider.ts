@@ -4,11 +4,11 @@ import { Snapshot } from "@svylabs/ilumina";
 import { Contract} from "ethers";
 
 
-import { StakeAction } from "../actions/stake";
+import { StakeAction } from "../actions/stabilitypool_stake";
 
-import { UnstakeAction } from "../actions/unstake";
+import { UnstakeAction } from "../actions/stabilitypool_unstake";
 
-import { ClaimAction } from "../actions/claim";
+import { ClaimAction } from "../actions/stabilitypool_claim";
 
 
 export function createStabilityProviderActor(account: Account, contracts: Record<string, Contract>): Actor {

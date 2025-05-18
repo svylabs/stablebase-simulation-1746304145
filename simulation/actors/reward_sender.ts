@@ -4,9 +4,9 @@ import { Snapshot } from "@svylabs/ilumina";
 import { Contract} from "ethers";
 
 
-import { SetStabilityPoolRewardsAction } from "../actions/set_stability_pool_rewards";
+import { SetStabilityPoolRewardsAction } from "../actions/stablebase_set_stability_pool_rewards";
 
-import { SetSbrStakingPoolRewardsAction } from "../actions/set_sbr_staking_pool_rewards";
+import { SetSbrStakingPoolRewardsAction } from "../actions/stablebase_set_sbr_staking_pool_rewards";
 
 
 export function createRewardSenderActor(account: Account, contracts: Record<string, Contract>): Actor {

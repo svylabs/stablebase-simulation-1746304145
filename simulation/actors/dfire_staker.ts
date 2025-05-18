@@ -4,11 +4,11 @@ import { Snapshot } from "@svylabs/ilumina";
 import { Contract} from "ethers";
 
 
-import { StakeAction } from "../actions/stake";
+import { StakeAction } from "../actions/dfirestaking_stake";
 
-import { UnstakeAction } from "../actions/unstake";
+import { UnstakeAction } from "../actions/dfirestaking_unstake";
 
-import { ClaimAction } from "../actions/claim";
+import { ClaimAction } from "../actions/dfirestaking_claim";
 
 
 export function createDfireStakerActor(account: Account, contracts: Record<string, Contract>): Actor {
