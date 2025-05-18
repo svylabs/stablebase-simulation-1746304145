@@ -4,17 +4,17 @@ import { Snapshot } from "@svylabs/ilumina";
 import { Contract} from "ethers";
 
 
-import { LiquidateSafesAction } from "./liquidate_safes";
+import { LiquidateSafesAction } from "../actions/liquidate_safes";
 
-import { ExecuteLiquidationAction } from "./execute_liquidation";
+import { ExecuteLiquidationAction } from "../actions/execute_liquidation";
 
-import { MintDfidAction } from "./mint_dfid";
+import { MintDfidAction } from "../actions/mint_dfid";
 
-import { BurnDfidAction } from "./burn_dfid";
+import { BurnDfidAction } from "../actions/burn_dfid";
 
-import { MintDfireAction } from "./mint_dfire";
+import { MintDfireAction } from "../actions/mint_dfire";
 
-import { BurnDfireAction } from "./burn_dfire";
+import { BurnDfireAction } from "../actions/burn_dfire";
 
 
 export function createProtocolActor(account: Account, contracts: Record<string, Contract>): Actor {

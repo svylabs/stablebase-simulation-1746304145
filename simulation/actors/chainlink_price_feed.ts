@@ -4,7 +4,7 @@ import { Snapshot } from "@svylabs/ilumina";
 import { Contract} from "ethers";
 
 
-import { FetchPriceAction } from "./fetch_price";
+import { FetchPriceAction } from "../actions/fetch_price";
 
 
 export function createChainlinkPriceFeedActor(account: Account, contracts: Record<string, Contract>): Actor {

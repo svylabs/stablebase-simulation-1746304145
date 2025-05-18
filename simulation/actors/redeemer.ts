@@ -4,7 +4,7 @@ import { Snapshot } from "@svylabs/ilumina";
 import { Contract} from "ethers";
 
 
-import { RedeemAction } from "./redeem";
+import { RedeemAction } from "../actions/redeem";
 
 
 export function createRedeemerActor(account: Account, contracts: Record<string, Contract>): Actor {

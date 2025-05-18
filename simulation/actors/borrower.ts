@@ -4,21 +4,21 @@ import { Snapshot } from "@svylabs/ilumina";
 import { Contract} from "ethers";
 
 
-import { OpenSafeAction } from "./open_safe";
+import { OpenSafeAction } from "../actions/open_safe";
 
-import { CloseSafeAction } from "./close_safe";
+import { CloseSafeAction } from "../actions/close_safe";
 
-import { BorrowAction } from "./borrow";
+import { BorrowAction } from "../actions/borrow";
 
-import { RepayAction } from "./repay";
+import { RepayAction } from "../actions/repay";
 
-import { AddCollateralAction } from "./add_collateral";
+import { AddCollateralAction } from "../actions/add_collateral";
 
-import { WithdrawCollateralAction } from "./withdraw_collateral";
+import { WithdrawCollateralAction } from "../actions/withdraw_collateral";
 
-import { FeeTopupAction } from "./fee_topup";
+import { FeeTopupAction } from "../actions/fee_topup";
 
-import { RedeemAction } from "./redeem";
+import { RedeemAction } from "../actions/redeem";
 
 
 export function createBorrowerActor(account: Account, contracts: Record<string, Contract>): Actor {

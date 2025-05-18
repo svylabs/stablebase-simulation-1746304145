@@ -4,11 +4,11 @@ import { Snapshot } from "@svylabs/ilumina";
 import { Contract} from "ethers";
 
 
-import { SetContractAddressesAction } from "./set_contract_addresses";
+import { SetContractAddressesAction } from "../actions/set_contract_addresses";
 
-import { SetStabilityPoolAddressAction } from "./set_stability_pool_address";
+import { SetStabilityPoolAddressAction } from "../actions/set_stability_pool_address";
 
-import { SetStablebasecdpAddressAction } from "./set_stablebasecdp_address";
+import { SetStablebasecdpAddressAction } from "../actions/set_stablebasecdp_address";
 
 
 export function createAdminActor(account: Account, contracts: Record<string, Contract>): Actor {
