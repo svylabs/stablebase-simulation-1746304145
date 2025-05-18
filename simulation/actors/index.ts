@@ -2,6 +2,7 @@ import { Action, Actor, Account } from "@svylabs/ilumina";
 import type { RunContext } from "@svylabs/ilumina";
 import { Snapshot } from "@svylabs/ilumina";
 import { Contract} from "ethers";
+import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers";
 
 
 import { createBorrowerActor } from "./borrower";
@@ -21,7 +22,7 @@ import { createAdminActor } from "./admin";
 import { createChainlinkPriceFeedActor } from "./chainlink_price_feed";
 
 
-export function setupActors(config: any, accounts: Account[], contracts: Record<string, Contract>): Actor[] {
+export function setupActors(config: any, addrs: HardhatEthersSigner[], contracts: Record<string, Contract>): Actor[] {
    let idx = 0;
    const actors: Actor[] = [];
 
