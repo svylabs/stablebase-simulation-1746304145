@@ -1,10 +1,6 @@
 {
   "actors": {
-    "user": 10,
-    "frontend": 3,
-    "marketCreator": 2,
-    "predifyContract": 1,
-    "resolutionStrategy": 4
+    "borrower": 10
   },
   "options": {
     "iterations": 10,
