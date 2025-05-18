@@ -1,6 +1,6 @@
 {
   "actors": {
-    "borrower": 10
+    "Borrower": 10
   },
   "options": {
     "iterations": 10,
